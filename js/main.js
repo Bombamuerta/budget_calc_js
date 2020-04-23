@@ -23,7 +23,14 @@ let startBtn = document.getElementById('start'),
 let money
 let time
 
+expensesBtn.setAttribute('disabled', 'disabled')
+optionalExpensesBtn.setAttribute('disabled', 'disabled')
+countBtn.setAttribute('disabled', 'disabled')
+
 startBtn.addEventListener('click', function () {
+  expensesBtn.removeAttribute('disabled', 'disabled')
+  optionalExpensesBtn.removeAttribute('disabled', 'disabled')
+  countBtn.removeAttribute('disabled', 'disabled')
   time = prompt('Введите дату в формате YYYY-MM-DD')
   money = +prompt('Ваш бюджет на месяц?')
 
@@ -57,6 +64,8 @@ expensesBtn.addEventListener('click', function () {
       i = i - 1
     }
     expensesValue.textContent = sum
+    expensesSum = +expensesItem[1].value + +expensesItem[3].value
+    console.log(expensesSum) 
   }
 })
 
@@ -70,10 +79,7 @@ optionalExpensesBtn.addEventListener('click', function () {
 
 countBtn.addEventListener('click', function () {
   if (appData.budget != undefined) {
-    // хочу чтобы appData.moneyPerDay учитывала бюджет минус сумма
-    // обязательных трат из  appData.expenses
-    appData.moneyPerDay = (appData.budget / 30).t
-    oFixed()
+    appData.moneyPerDay = ((appData.budget - expensesSum) / 30).toFixed()
 
     dayBudgetValue.textContent = appData.moneyPerDay
 
